@@ -1,0 +1,87 @@
+{
+  "project_info": {
+    "project_number": "354444862050",
+    "firebase_url": "https://moviles2-e13d3-default-rtdb.firebaseio.com",
+    "project_id": "moviles2-e13d3",
+    "storage_bucket": "moviles2-e13d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354444862050:android:e6f94d47b576ae01a8a73b",
+        "android_client_info": {
+          "package_name": "com.example.app_fire"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtcE7ikLjsKORVVf2uK7Sm8f-4bcutBPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354444862050:android:f2346ce84d7f50e4a8a73b",
+        "android_client_info": {
+          "package_name": "com.example.autonoma1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtcE7ikLjsKORVVf2uK7Sm8f-4bcutBPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354444862050:android:3069a7b10b00d183a8a73b",
+        "android_client_info": {
+          "package_name": "com.example.prueba2movil3"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtcE7ikLjsKORVVf2uK7Sm8f-4bcutBPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:354444862050:android:3978b24290d102e0a8a73b",
+        "android_client_info": {
+          "package_name": "com.fire.app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAtcE7ikLjsKORVVf2uK7Sm8f-4bcutBPU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

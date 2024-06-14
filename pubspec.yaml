@@ -21,5 +21,10 @@ flutter:
   uses-material-design: true
 
 sdk: flutter
+assets:
+   - assets/images/fondo01.jpeg
+   - assets/images/fondo02.jpeg
+   - assets/images/fondo03.jpg
+   - assets/images/fondo04.jpg
   
   

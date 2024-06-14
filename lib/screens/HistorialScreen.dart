@@ -31,7 +31,7 @@ class HistorialScreen extends StatelessWidget {
         padding: EdgeInsets.all(10),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('assets/images/fondo05.jpeg'),
+            image: AssetImage('prueba2movil3/assets/images/fondo04.jpg'),
             fit: BoxFit.cover,
           ),
         ),

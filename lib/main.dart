@@ -1,15 +1,14 @@
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'screens/LoginScreen.dart';
-import 'screens/RegistroScreen.dart';
-import 'screens/PruebaScreen.dart';
-import 'screens/CuentaScreen.dart';
-import 'screens/HistorialScreen.dart';
+import 'package:flutter/material.dart';
+import 'package:prueba2movil3/screens/LoginScreen.dart';
+import 'package:prueba2movil3/screens/RegistroScreen.dart';
+import 'package:prueba2movil3/screens/CuentaScreen.dart';
+import 'package:prueba2movil3/screens/HistorialScreen.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  runApp(Welcome());
+  runApp(const Welcome());
 }
 
 class Welcome extends StatelessWidget {
@@ -18,14 +17,10 @@ class Welcome extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      initialRoute: '/',
-      routes: {
-        '/': (context) => const Home(),
-        '/login': (context) => const LoginScreen(),
-        '/registro': (context) => const RegistroScreen(),
-        '/cuenta': (context) => const CuentaScreen(),
-        '/historial': (context) => const HistorialScreen(),
-      },
+      theme: ThemeData(
+        primarySwatch: Colors.amber,
+      ),
+      home: const Home(),
     );
   }
 }
@@ -41,8 +36,7 @@ class _HomeState extends State<Home> {
   int _selectedIndex = 0;
 
   static const List<Widget> _widgetOptions = <Widget>[
-    PruebaScreen(),
-    CuentaScreen(),
+    Cuerpo(),
     HistorialScreen(),
   ];
 
@@ -58,26 +52,51 @@ class _HomeState extends State<Home> {
       appBar: AppBar(
         title: const Text('PRUEBA'),
       ),
-      body: _widgetOptions.elementAt(_selectedIndex),
-      bottomNavigationBar: BottomNavigationBar(
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(Icons.home),
-            label: 'Prueba',
+      body: Container(child: _widgetOptions.elementAt(_selectedIndex)),
+      
+    );
+  }
+}
+
+class Cuerpo extends StatelessWidget {
+  const Cuerpo({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+            child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          const Text(
+            'Nombre del estudiante: Luis Morales',
+            style: TextStyle(fontSize: 18),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle),
-            label: 'Cuenta',
+          const Text(
+            'Usuario de GitHub: luirimo@hotmail.com',
+            style: TextStyle(fontSize: 18),
           ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.history),
-            label: 'Historial',
-          ),
+          const SizedBox(height: 20),
+          BotonLogin(context),
+          const SizedBox(height: 10),
         ],
-        currentIndex: _selectedIndex,
-        selectedItemColor: Colors.amber[800],
-        onTap: _onItemTapped,
       ),
     );
   }
+}
+
+Widget BotonLogin(BuildContext context) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.amber,
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    ),
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
+    },
+    child: const Text("Ir a Login"),
+  );
 }

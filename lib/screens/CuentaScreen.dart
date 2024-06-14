@@ -1,89 +1,65 @@
 import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-
-class CuentaScreen extends StatefulWidget {
-  const CuentaScreen({super.key});
-
-  @override
-  _CuentaScreenState createState() => _CuentaScreenState();
-}
-
-class _CuentaScreenState extends State<CuentaScreen> {
-  String? userNickname;
-  DocumentSnapshot? userDocument;
-
-  @override
-  void initState() {
-    super.initState();
-    _getUserData();
-  }
-
-  Future<void> _getUserData() async {
-    try {
-      User? user = FirebaseAuth.instance.currentUser;
-      if (user != null) {
-        String nickname = user.displayName ?? 'default_nickname';
-        DocumentSnapshot doc = await FirebaseFirestore.instance
-            .collection('users')
-            .doc(nickname)
-            .get();
-        setState(() {
-          userNickname = nickname;
-          userDocument = doc;
-        });
-      }
-    } catch (e) {
-      print('Error fetching user data: $e');
-    }
-  }
+class Cuenta extends StatelessWidget {
+  const Cuenta({super.key});
 
   @override
   Widget build(BuildContext context) {
-    if (userDocument == null) {
-      return Scaffold(
-        appBar: AppBar(
-          title: const Text('Cuenta'),
-        ),
-        body: const Center(
-          child: CircularProgressIndicator(),
-        ),
-      );
-    }
-
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text('Cuenta'),
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/fondo04.jpeg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const CircleAvatar(
-              radius: 50,
-              backgroundImage: AssetImage('assets/images/user_image.png'),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Número de cuenta: ${userDocument!['nickname']}',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-            const SizedBox(height: 20),
-            Text(
-              'Valor total de la cuenta: \$${userDocument!['total_value']}',
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
-            ),
-          ],
-        ),
-      ),
+    return MaterialApp(
+        title: "Cuenta",
+      home:Home(),
+      debugShowCheckedModeBanner: false,
     );
   }
 }
+class Home extends StatefulWidget {
+  const Home({super.key});
 
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Title'),
+      ),
+      body: Cuerpo(),
+      
+    );
+  }
+}
+ 
+ Widget Cuerpo (){
+  return Center(
+    child: Container(
+      padding: const EdgeInsets.all(20),
+      decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('prueba2movil3/assets/images/fondo04.jpg'),
+                  
+              fit: BoxFit.cover)),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: <Widget>[
+          CircleAvatar(
+            radius: 50,
+            backgroundImage: NetworkImage('https://st3.depositphotos.com/3776273/31936/i/600/depositphotos_319362956-stock-photo-man-pointing-showing-copy-space.jpg'), 
+          ),
+          const SizedBox(height: 20),
+          const Text(
+            'Número de Cuenta: 1234567890',
+            style: TextStyle(fontSize: 20),
+          ),
+          const SizedBox(height: 10),
+          const Text(
+            'Valor Total de la Cuenta: \$1000.00',
+            style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+          ),
+        ],
+      ),
+    ),
+  );
+ }

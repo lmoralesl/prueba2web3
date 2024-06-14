@@ -1,118 +1,192 @@
-import 'package:flutter/material.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'LoginScreen.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/material.dart';
+import 'package:prueba2movil3/screens/LoginScreen.dart';
 
-class RegistroScreen extends StatefulWidget {
-  const RegistroScreen({super.key});
-
-  @override
-  _RegistroScreenState createState() => _RegistroScreenState();
+Future<void> main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+  runApp(const Registro());
 }
 
-class _RegistroScreenState extends State<RegistroScreen> {
-  final TextEditingController _emailController = TextEditingController();
-  final TextEditingController _nicknameController = TextEditingController();
-  final TextEditingController _passwordController = TextEditingController();
-  final _formKey = GlobalKey<FormState>();
+class Registro extends StatelessWidget {
+  const Registro({super.key});
 
-  void _register() async {
-    if (_formKey.currentState!.validate()) {
-      final email = _emailController.text;
-      final nickname = _nicknameController.text;
-      final password = _passwordController.text;
+  @override
+  Widget build(BuildContext context) {
+    return const MaterialApp(
+      home: Home(),
+      debugShowCheckedModeBanner: false,
 
-      try {
-        // Crear usuario en FirebaseAuth
-        UserCredential userCredential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: email,
-          password: password,
-        );
-
-        // Actualizar el perfil del usuario con el nickname
-        await userCredential.user!.updateDisplayName(nickname);
-
-        // Guardar datos en Firestore
-        await FirebaseFirestore.instance.collection('users').doc(nickname).set({
-          'email': email,
-          'nickname': nickname,
-          'total_value': 0, // Initial value
-        });
-
-        // Redirigir a la pantalla de Login
-        Navigator.pushReplacement(
-          context,
-          MaterialPageRoute(builder: (context) => const LoginScreen()),
-        );
-      } catch (e) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text('Error al registrar usuario: $e')),
-        );
-      }
-    }
+    );
   }
+}
 
+class Home extends StatefulWidget {
+  const Home({super.key});
+
+  @override
+  State<Home> createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Registro'),
+        title: const Text("Registro"),
       ),
-      body: Container(
-        padding: const EdgeInsets.all(10),
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('assets/images/fondo03.jpeg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Form(
-          key: _formKey,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TextFormField(
-                controller: _emailController,
-                decoration: const InputDecoration(labelText: 'Correo'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese su correo';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _nicknameController,
-                decoration: const InputDecoration(labelText: 'Nickname'),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese su nickname';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: _passwordController,
-                decoration: const InputDecoration(labelText: 'Contraseña'),
-                obscureText: true,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Por favor ingrese su contraseña';
-                  }
-                  return null;
-                },
-              ),
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: _register,
-                child: const Text('Registrar'),
-              ),
-            ],
-          ),
-        ),
-      ),
+      body: Cuerpo(context),
     );
   }
+}
+
+Widget Cuerpo(context){
+  return Container(
+    padding: EdgeInsets.all(10),
+    
+    child: (
+     Column(
+       children: <Widget>[
+        Text("Registro", style: TextStyle(fontSize: 20),),
+        SizedBox(height: 30.0),
+        CampoCorreo(context),
+        SizedBox(height: 20.0),
+        CampoNickName(context),
+        SizedBox(height: 20.0),
+        CampoContrasenia(context),
+         SizedBox(height: 30.0),
+        ButonLogin(context)
+       ],
+     )
+    ),
+  );
+}
+
+final TextEditingController _correo = TextEditingController();
+final TextEditingController _nickName = TextEditingController();
+final TextEditingController _contrasenia = TextEditingController();
+
+
+Widget CampoCorreo(context){
+return(
+ TextField(
+    controller: _correo,
+      decoration: InputDecoration(
+        hintText: "Ingrese correo"),)
+);
+}
+Widget CampoNickName(context){
+return(
+ TextField(
+    controller: _nickName,
+      decoration: InputDecoration(
+        hintText: "Ingrese NickName"),)
+);
+}
+
+Widget CampoContrasenia(context){
+return(
+ TextField(
+    controller: _contrasenia,
+    obscureText: true,
+      decoration: InputDecoration(
+        hintText: "Ingrese contraseña"),)
+);
+}
+
+Widget ButonLogin(context){
+  return(
+    ElevatedButton(onPressed: (){
+       registro(context);
+    }, child: Text("Registro"))
+  );
+}
+
+void registro (context) async{
+  try {
+  final credential = await FirebaseAuth.instance.createUserWithEmailAndPassword(
+    email: _correo.text,
+    password: _contrasenia.text,
+  );
+
+  //////////////////////////////////////////////////////////
+     Navigator.push(context, 
+      MaterialPageRoute(builder: (context)=>Login()));
+    //////////////////////////////////////////////////////////
+} on FirebaseAuthException catch (e) {
+  if (e.code == 'weak-password') {
+    print('The password provided is too weak.');
+    alerta01(context);
+  } else if (e.code == 'email-already-in-use') {
+    print('The account already exists for that email.');
+    alerta02(context);
+  }
+} catch (e) {
+  print(e);
+  alerta03(context);
+}
+}
+
+void alerta01(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Error"),
+        content: const Text("La contraseña es muy debil"),
+        actions: [
+          
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void alerta02(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Error"),
+        content: const Text("La cuenta ya existe con este correo"),
+        actions: [
+          
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void alerta03(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Error"),
+        content: const Text("Contacte con soporte tecnico"),
+        actions: [
+          
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      );
+    },
+  );
 }

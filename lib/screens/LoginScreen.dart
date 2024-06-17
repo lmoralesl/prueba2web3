@@ -1,8 +1,8 @@
-
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:prueba2movil3/screens/CuentaScreen.dart';
+import 'package:prueba2movil3/screens/RegistroScreen.dart';
 Future<void> main() async {
   
   runApp(Login());
@@ -47,7 +47,8 @@ Widget Cuerpo(context){
           Text("LOGIN"),
           CampoCorreo(context),
           CampoContrasenia(context),
-          BotonLogin(context)
+          BotonLogin(context),
+          BotonRegistro(context)
         ],
       )
       
@@ -101,7 +102,7 @@ Future<void> login(context) async {
 /////////////////////////////////////////////////////////
 Navigator.push(context, 
         MaterialPageRoute(builder: 
-        (context)=> Cuenta()
+        (context)=> CuentaScreen()
         )
         );
 
@@ -114,5 +115,20 @@ Navigator.push(context,
     print('Wrong password provided for that user.');
   }
 }
-
+}
+Widget BotonRegistro(BuildContext context) {
+  return ElevatedButton(
+    style: ElevatedButton.styleFrom(
+      foregroundColor: Colors.white,
+      backgroundColor: Colors.amber,
+      padding: const EdgeInsets.symmetric(horizontal: 30, vertical: 10),
+    ),
+    onPressed: () {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Registro()),
+      );
+    },
+    child: const Text("Ir a Registro"),
+  );
 }

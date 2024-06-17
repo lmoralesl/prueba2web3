@@ -7,17 +7,17 @@ class HistorialScreen extends StatelessWidget {
     {
       'ret': 'Retiro: 30',
       'type': 'Tipo: Impuestos',
-      'balance': 'Saldo: 450',
+      'balance': 'Saldo: 2070',
     },
     {
       'ret': 'Retiro: 50',
       'type': 'Tipo: Compras',
-      'balance': 'Saldo: 400',
+      'balance': 'Saldo: 2020',
     },
     {
       'ret': 'Retiro: 20',
       'type': 'Tipo: Servicios',
-      'balance': 'Saldo: 380',
+      'balance': 'Saldo: 2000',
     },
   ];
 

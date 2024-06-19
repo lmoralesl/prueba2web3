@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:prueba2movil3/screens/LoginScreen.dart';
 
@@ -43,6 +44,12 @@ class _HomeState extends State<Home> {
 
 Widget Cuerpo(context){
   return Container(
+    width: double.infinity,
+       decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/fondo03.jpg'),
+              fit: BoxFit.cover)),
+
     padding: EdgeInsets.all(10),
     
     child: (
@@ -113,6 +120,8 @@ void registro (context) async{
   //////////////////////////////////////////////////////////
      Navigator.push(context, 
       MaterialPageRoute(builder: (context)=>Login()));
+      guardar();
+
     //////////////////////////////////////////////////////////
 } on FirebaseAuthException catch (e) {
   if (e.code == 'weak-password') {
@@ -127,6 +136,17 @@ void registro (context) async{
   alerta03(context);
 }
 }
+
+Future<void> guardar() async {
+  DatabaseReference ref = FirebaseDatabase.instance.ref("usuarios/"+_nickName.text);               //doy el nombre a la coleccion en el metodo .ref y el nombre del id con el que se va a guardar
+
+await ref.set({
+  "nickname": _nickName.text,
+  "correo": _correo.text
+});
+}
+
+
 
 void alerta01(BuildContext context) {
   showDialog(

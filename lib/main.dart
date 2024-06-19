@@ -63,22 +63,30 @@ class Cuerpo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-            child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Text(
-            'Nombre del estudiante: Luis Morales',
-            style: TextStyle(fontSize: 18),
-          ),
-          const Text(
-            'Usuario de GitHub: luirimo@hotmail.com',
-            style: TextStyle(fontSize: 18),
-          ),
-          const SizedBox(height: 20),
-          BotonLogin(context),
-          const SizedBox(height: 10),
-        ],
+    return Container(
+      width: double.infinity,
+       decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/fondo01.jpeg'),
+              fit: BoxFit.cover)),
+
+      child: Center(
+              child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Text(
+              'Nombre del estudiante: Luis Morales',
+              style: TextStyle(fontSize: 18),
+            ),
+            const Text(
+              'Usuario de GitHub: luirimo@hotmail.com',
+              style: TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 20),
+            BotonLogin(context),
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }

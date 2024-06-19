@@ -40,6 +40,12 @@ class _HomeState extends State<Home> {
 
 Widget Cuerpo(context){
   return Container(
+    width: double.infinity,
+       decoration: const BoxDecoration(
+          image: DecorationImage(
+              image: AssetImage('assets/images/fondo02.jpeg'),
+              fit: BoxFit.cover)),
+
     padding: EdgeInsets.all(10),
     child: (
       Column(
@@ -111,8 +117,12 @@ Navigator.push(context,
 } on FirebaseAuthException catch (e) {
   if (e.code == 'user-not-found') {
     print('No user found for that email.');
+    alerta01(context);
   } else if (e.code == 'wrong-password') {
     print('Wrong password provided for that user.');
+    alerta02(context);
+  }else{
+    alerta03(context);
   }
 }
 }
@@ -130,5 +140,69 @@ Widget BotonRegistro(BuildContext context) {
       );
     },
     child: const Text("Ir a Registro"),
+  );
+}
+
+
+void alerta01(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Error"),
+        content: const Text("El usuario no existe"),
+        actions: [
+          
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void alerta02(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Error"),
+        content: const Text("LLa contraseña es incorrecta"),
+        actions: [
+          
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      );
+    },
+  );
+}
+
+void alerta03(BuildContext context) {
+  showDialog(
+    context: context,
+    builder: (context) {
+      return AlertDialog(
+        title: const Text("Error"),
+        content: const Text("Las credenciales ingresadas son incorrectas"),
+        actions: [
+          
+          TextButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            child: const Text("OK"),
+          ),
+        ],
+      );
+    },
   );
 }

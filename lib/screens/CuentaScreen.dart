@@ -55,10 +55,11 @@ class CuentaContent extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: Container(
+        width: double.infinity,
         padding: const EdgeInsets.all(20),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('prueba2movil3/assets/images/fondo04.jpg'),
+            image: AssetImage('assets/images/fondo04.jpg'),
             fit: BoxFit.cover,
           ),
         ),
@@ -68,7 +69,7 @@ class CuentaContent extends StatelessWidget {
           children: <Widget>[
             const CircleAvatar(
               radius: 50,
-              backgroundImage: NetworkImage('https://st3.depositphotos.com/3776273/31936/i/600/depositphotos_319362956-stock-photo-man-pointing-showing-copy-space.jpg'),
+              backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/128/2202/2202112.png'),
             ),
             const SizedBox(height: 20),
             const Text(

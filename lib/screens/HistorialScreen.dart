@@ -28,10 +28,12 @@ class HistorialScreen extends StatelessWidget {
         title: Text('Historial'),
       ),
       body: Container(
+        width: double.infinity,
+
         padding: EdgeInsets.all(10),
         decoration: const BoxDecoration(
           image: DecorationImage(
-            image: AssetImage('prueba2movil3/assets/images/fondo04.jpg'),
+            image: AssetImage('assets/images/fondo01.jpeg'),
             fit: BoxFit.cover,
           ),
         ),
